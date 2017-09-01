@@ -6,7 +6,7 @@ describe('loadFriends', () => {
         assert.isFunction(loadFriends);
     });
 
-    it('Должна возвращать промис с данными, полученными из сервера', () => {
+    it('Должна возвращать промис', () => {
         const constructor = loadFriends().constructor.name;
         const expectedConstructor = 'Promise';
 
