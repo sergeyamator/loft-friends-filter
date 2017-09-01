@@ -6,18 +6,32 @@ describe('searchByText', () => {
         assert.isFunction(searchByText);
     });
 
-    it('Должна возвращать отфильтрованные данные', () => {
-        const actualData = [
-            { name: 'Dima' },
-            { name: 'Dmitry' },
-            { name: 'Anna' },
-            { name: 'Ganna' }
-        ];
-        const expectedData = [
-            { name: 'Anna' },
-            { name: 'Ganna' }
-        ];
+    describe('Работа с данными', () => {
+        let actualData;
+        let expectedData;
 
-        assert.deepEqual(searchByText('nn', actualData), expectedData);
-    });
+        beforeEach(() => {
+            actualData = [
+                {name: 'Dima'},
+                {name: 'Dmitry'},
+                {name: 'Anna'},
+                {name: 'Ganna'}
+            ];
+
+            expectedData = [
+                {name: 'Anna'},
+                {name: 'Ganna'}
+            ];
+        });
+
+        it('Должна возвращать отфильтрованные данные', () => {
+            assert.deepEqual(searchByText('nn', actualData), expectedData);
+        });
+
+        it('Не должна изменять исходный массив', () => {
+            searchByText('nn', actualData);
+
+            assert.deepEqual(actualData, actualData);
+        })
+    })
 });
