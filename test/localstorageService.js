@@ -3,14 +3,16 @@ import localstorageService from '../src/localstorageService';
 import sinon from 'sinon';
 
 describe('localstorage', () => {
-    let saveToLocalStorage;
+    let data;
+    let name;
 
     beforeEach(() => {
-        saveToLocalStorage = sinon.spy(localStorage, 'setItem');
+        data = [{name: 'Sergey'}, {name: 'Dima'}];
+        name = 'friends';
     });
 
-    afterEach(() => {
-        saveToLocalStorage.restore();
+    beforeEach(() => {
+        localstorageService.clear();
     });
 
     it('should be an object', () => {
@@ -22,29 +24,41 @@ describe('localstorage', () => {
             assert.isFunction(localstorageService.save);
         });
 
-        beforeEach(() => {
-            //localstorageService.clear();
-        });
-
         it('Должна сохранять данные в localstorage', () => {
-            const data = [{name: 'Sergey'}, {name: 'Dima'}];
-            const name = 'friends';
+            let expectedData;
 
             localstorageService.save(name, data);
+            expectedData = JSON.parse(localStorage.getItem(name));
 
-            assert.isOk(saveToLocalStorage.calledWith(data, name));
+            assert.deepEqual(expectedData, data);
         });
     });
 
-    describe('restore', () => {
+    describe('get', () => {
         it('Должна быть функцией', () => {
-            assert.isFunction(localstorageService.save);
+            assert.isFunction(localstorageService.get);
+        });
+
+        it('Должна возвращать распарсенный объект из localstorage', () => {
+            let expectedData;
+
+            localstorageService.save(name, data);
+            expectedData = localstorageService.get(name);
+
+            assert.deepEqual(expectedData, data);
         });
     });
 
     describe('clear', () => {
         it('Должна быть функцией', () => {
             assert.isFunction(localstorageService.save);
+        });
+
+        it('Должна очищать localstorage', () => {
+            localstorageService.save(name, data);
+            localstorageService.clear();
+
+            assert.equal(localStorage.length, 0);
         });
     });
 });

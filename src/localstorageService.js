@@ -4,16 +4,16 @@ function save(name, data) {
     localStorage.setItem(name, jsonData);
 }
 
-function restore() {
-
+function get(name) {
+    return JSON.parse(localStorage.getItem(name));
 }
 
 function clear() {
-
+    localStorage.clear();
 }
 
 export default {
     save,
-    restore,
+    get,
     clear
 }
