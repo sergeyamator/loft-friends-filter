@@ -1,19 +1,20 @@
-function save(name, data) {
-    const jsonData = JSON.stringify(data);
+function saveItemsId(name, data) {
+    const itemsId = data.map(item => ({id: item.id}));
+    const jsonData = JSON.stringify(itemsId);
 
     localStorage.setItem(name, jsonData);
 }
 
-function get(name) {
+function getItemsId(name) {
     return JSON.parse(localStorage.getItem(name));
 }
 
-function clear() {
-    localStorage.clear();
+function removeFromStorage(name) {
+    localStorage.removeItem(name);
 }
 
 export default {
-    save,
-    get,
-    clear
+    saveItemsId,
+    getItemsId,
+    removeFromStorage
 }

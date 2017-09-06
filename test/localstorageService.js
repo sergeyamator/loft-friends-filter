@@ -1,64 +1,65 @@
 import {assert} from 'chai';
 import localstorageService from '../src/localstorageService';
-import sinon from 'sinon';
 
 describe('localstorage', () => {
     let data;
     let name;
 
     beforeEach(() => {
-        data = [{name: 'Sergey'}, {name: 'Dima'}];
+        data = [{name: 'Sergey', id: 32}, {name: 'Dima', id: 42}];
         name = 'friends';
-    });
 
-    beforeEach(() => {
-        localstorageService.clear();
+        localStorage.clear();
     });
 
     it('should be an object', () => {
         assert.isObject(localstorageService);
     });
 
-    describe('save', () => {
+    describe('saveItemsId', () => {
         it('Должна быть функцией', () => {
-            assert.isFunction(localstorageService.save);
+            assert.isFunction(localstorageService.saveItemsId);
         });
 
         it('Должна сохранять данные в localstorage', () => {
             let expectedData;
+            let actualData;
 
-            localstorageService.save(name, data);
-            expectedData = JSON.parse(localStorage.getItem(name));
+            localstorageService.saveItemsId(name, data);
+            expectedData = [{id: 32}, {id: 42}];
+            actualData = JSON.parse(localStorage.getItem(name));
 
-            assert.deepEqual(expectedData, data);
+            assert.deepEqual(expectedData, actualData);
         });
     });
 
-    describe('get', () => {
+    describe('getItemsId', () => {
         it('Должна быть функцией', () => {
-            assert.isFunction(localstorageService.get);
+            assert.isFunction(localstorageService.getItemsId);
         });
 
         it('Должна возвращать распарсенный объект из localstorage', () => {
             let expectedData;
+            let actualData;
 
-            localstorageService.save(name, data);
-            expectedData = localstorageService.get(name);
+            localstorageService.saveItemsId(name, data);
+            expectedData = [{id: 32}, {id: 42}];
+            actualData = localstorageService.getItemsId(name);
 
-            assert.deepEqual(expectedData, data);
+            assert.deepEqual(expectedData, actualData);
         });
     });
 
-    describe('clear', () => {
+    describe('removeFromStorage', (name) => {
         it('Должна быть функцией', () => {
-            assert.isFunction(localstorageService.save);
+            assert.isFunction(localstorageService.removeFromStorage);
         });
 
         it('Должна очищать localstorage', () => {
-            localstorageService.save(name, data);
-            localstorageService.clear();
+            localstorageService.saveItemsId(name, data);
+            localstorageService.removeFromStorage(name);
 
-            assert.equal(localStorage.length, 0);
+            assert.isNull(localStorage.getItem(name));
         });
     });
 });
