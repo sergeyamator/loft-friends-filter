@@ -26,7 +26,7 @@ describe('localstorage', () => {
             let actualData;
 
             localstorageService.saveItemsId(name, data);
-            expectedData = [{id: 32}, {id: 42}];
+            expectedData = [32, 42];
             actualData = JSON.parse(localStorage.getItem(name));
 
             assert.deepEqual(expectedData, actualData);
@@ -43,7 +43,7 @@ describe('localstorage', () => {
             let actualData;
 
             localstorageService.saveItemsId(name, data);
-            expectedData = [{id: 32}, {id: 42}];
+            expectedData = [32, 42];
             actualData = localstorageService.getItemsId(name);
 
             assert.deepEqual(expectedData, actualData);

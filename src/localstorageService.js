@@ -1,5 +1,5 @@
 function saveItemsId(name, data) {
-    const itemsId = data.map(item => ({id: item.id}));
+    const itemsId = data.map(item => item.id);
     const jsonData = JSON.stringify(itemsId);
 
     localStorage.setItem(name, jsonData);

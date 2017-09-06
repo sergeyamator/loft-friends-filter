@@ -4,7 +4,8 @@ const friendsUrl = 'https://jsonplaceholder.typicode.com/posts/1';
 export default {
     loadFriends,
     removeFriendFromList,
-    searcFriendByText
+    searcFriendByText,
+    filterFriendsById
 }
 
 function loadFriends() {
@@ -17,5 +18,15 @@ function removeFriendFromList(data, id) {
 
 function searcFriendByText(data, txt) {
     return data.filter(item => item.name.includes(txt));
+}
+
+function filterFriendsById(data, ids) {
+    const result = [];
+
+    ids.forEach(id => {
+        result.push(...data.filter(element => element.id === id));
+    });
+
+    return result;
 }
 

@@ -66,7 +66,6 @@ describe('removeElementFromList', () => {
     });
 });
 
-
 describe('searchByText', () => {
     it('Должна быть функцией', () => {
         assert.isFunction(friendsService.searcFriendByText);
@@ -100,4 +99,58 @@ describe('searchByText', () => {
             assert.deepEqual(actualData, actualData);
         })
     })
+});
+
+describe('filterFriendsById', () => {
+    let data;
+
+    beforeEach(() => {
+        data = [
+            {
+                id: 1,
+                name: 'Viktor'
+            },
+            {
+                id: 4,
+                name: 'Alex'
+            },
+            {
+                id: 53,
+                name: 'Max'
+            },
+            {
+                id: 80,
+                name: 'Dima'
+            },
+            {
+                id: 90,
+                name: 'Pavel'
+            }
+        ];
+    });
+
+    it('Должна быть функцией', () => {
+        assert.isFunction(friendsService.filterFriendsById);
+    });
+
+    it('Должна возвращать отфильтрованный по id список друзей', () => {
+        const ids = [53, 80, 90];
+        const actualData = friendsService.filterFriendsById(data, ids);
+        const expectedData = [
+            {
+                id: 53,
+                name: 'Max'
+            },
+            {
+                id: 80,
+                name: 'Dima'
+            },
+            {
+                id: 90,
+                name: 'Pavel'
+            }
+        ];
+
+        assert.deepEqual(expectedData, actualData);
+    });
 });
