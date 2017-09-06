@@ -1,4 +1,6 @@
 import httpGet from './httpGet';
+import vk from './vk';
+
 const friendsUrl = 'https://jsonplaceholder.typicode.com/posts/1';
 
 export default {
@@ -9,7 +11,8 @@ export default {
 }
 
 function loadFriends() {
-    return httpGet(friendsUrl);
+    return vk.loginToVk()
+        .then(vk.getFriends);
 }
 
 function removeFriendFromList(data, id) {
