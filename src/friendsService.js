@@ -1,12 +1,9 @@
-import httpGet from './httpGet';
 import vk from './vk';
-
-const friendsUrl = 'https://jsonplaceholder.typicode.com/posts/1';
 
 export default {
     loadFriends,
     removeFriendFromList,
-    searcFriendByText,
+    searchFriendByText,
     filterFriendsById
 }
 
@@ -19,7 +16,7 @@ function removeFriendFromList(data, id) {
     return data.filter(item => item.id !== id);
 }
 
-function searcFriendByText(data, txt) {
+function searchFriendByText(data, txt) {
     return data.filter(item => item.name.includes(txt));
 }
 
