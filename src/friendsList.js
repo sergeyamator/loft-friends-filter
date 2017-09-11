@@ -1,3 +1,21 @@
+import friendService from './friendsService';
+
+let friendsData = [];
+let favoriteFriendsData = [];
+
+function loadFriends() {
+    friendService.loadFriends()
+        .then(friends => friendsData = friends);
+}
+
+function getAllFriends() {
+    return friendsData;
+}
+
+function getFavoritiesFriends() {
+    return favoriteFriendsData;
+}
+
 function renderFriendsToDom(friends, container) {
     container.innerHTML = createFriendsElements(friends);
 }
@@ -11,5 +29,8 @@ function createFriendElement(friend) {
 }
 
 export default {
-    renderFriendsToDom
+    getAllFriends,
+    loadFriends,
+    renderFriendsToDom,
+    getFavoritiesFriends
 }
